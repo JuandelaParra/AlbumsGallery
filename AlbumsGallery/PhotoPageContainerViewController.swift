@@ -1,11 +1,3 @@
-//
-//  PhotoPageContainerViewController.swift
-//  FluidPhoto
-//
-//  Created by Masamichi Ueta on 2016/12/23.
-//  Copyright © 2016 Masmichi Ueta. All rights reserved.
-//
-
 import UIKit
 
 protocol PhotoPageContainerViewControllerDelegate: class {
@@ -30,7 +22,7 @@ class PhotoPageContainerViewController: UIViewController, UIGestureRecognizerDel
     }
     
     var photos: [UIImage]!
-    var titulos: [UILabel]!
+    var titulos: [String]!
     var currentIndex = 0
     var nextIndex: Int?
     
@@ -54,12 +46,49 @@ class PhotoPageContainerViewController: UIViewController, UIGestureRecognizerDel
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "\(PhotoZoomViewController.self)") as! PhotoZoomViewController
         vc.delegate = self
         vc.index = self.currentIndex
+        //vc.titulo = self.titulos[self.currentIndex]
         vc.image = self.photos[self.currentIndex]
-        vc.titulo = self.titulos[self.currentIndex]
         self.singleTapGestureRecognizer.require(toFail: vc.doubleTapGestureRecognizer)
         let viewControllers = [
             vc
         ]
+        let uri = String(currentIndex)
+        let endpoint = "https://jsonplaceholder.typicode.com/photos?albumId=\(uri)"
+        guard let url = URL(string: endpoint) else {return}
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let dataResponse = data,
+                error == nil else {
+                    print(error?.localizedDescription ?? "Response Error")
+                    return }
+            do{
+                
+                let jsonResponse = try JSONSerialization.jsonObject(with:
+                    dataResponse, options: [])
+                guard let jsonArray = jsonResponse as? [[String: Any]] else {
+                    return
+                }
+                self.photos = []
+                self.titulos = []
+                for i in 0 ... jsonArray.count-1 {
+                    let equis = jsonArray[i]["thumbnailUrl"] as! String
+                    self.titulos.append(jsonArray[i]["title"] as! String)
+                    print(jsonArray[i]["title"] as! String)
+                    let url = URL(string:equis)
+                    DispatchQueue.global().async {
+                        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        DispatchQueue.main.async {
+                            self.photos.append(UIImage(data: data!)!)
+                            
+                        }
+                    }
+                   // self.ids.append(jsonArray[i]["id"] as! Int)
+                }
+               // self.carousel2.reloadData()
+            } catch let parsingError {
+                print("Error", parsingError)
+            }
+        }
+        task.resume()
         
         self.pageViewController.setViewControllers(viewControllers, direction: .forward, animated: true, completion: nil)
     }
@@ -166,6 +195,8 @@ extension PhotoPageContainerViewController: UIPageViewControllerDelegate, UIPage
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "\(PhotoZoomViewController.self)") as! PhotoZoomViewController
         vc.delegate = self
         vc.image = self.photos[currentIndex - 1]
+        vc.titulo = self.titulos[currentIndex - 1]
+    
         vc.index = currentIndex - 1
         self.singleTapGestureRecognizer.require(toFail: vc.doubleTapGestureRecognizer)
         return vc
@@ -182,6 +213,7 @@ extension PhotoPageContainerViewController: UIPageViewControllerDelegate, UIPage
         vc.delegate = self
         self.singleTapGestureRecognizer.require(toFail: vc.doubleTapGestureRecognizer)
         vc.image = self.photos[currentIndex + 1]
+        vc.titulo = self.titulos[currentIndex + 1]
         vc.index = currentIndex + 1
         return vc
         
@@ -235,7 +267,7 @@ extension PhotoPageContainerViewController: ZoomAnimatorDelegate {
         return self.currentViewController.imageView
     }
     
-    func referenceImageViewFrameInTransitioningView(for zoomAnimator: ZoomAnimator) -> CGRect? {        
+    func referenceImageViewFrameInTransitioningView(for zoomAnimator: ZoomAnimator) -> CGRect? {
         return self.currentViewController.scrollView.convert(self.currentViewController.imageView.frame, to: self.currentViewController.view)
     }
 }

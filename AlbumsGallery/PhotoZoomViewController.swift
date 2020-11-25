@@ -20,11 +20,12 @@ class PhotoZoomViewController: UIViewController {
     @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titLabel: UILabel!
     
     weak var delegate: PhotoZoomViewControllerDelegate?
     
     var image: UIImage!
-    var titulo: UILabel!
+    var titulo: String!
     var index: Int = 0
 
     var doubleTapGestureRecognizer: UITapGestureRecognizer!
@@ -41,6 +42,8 @@ class PhotoZoomViewController: UIViewController {
         if #available(iOS 11, *) {
             self.scrollView.contentInsetAdjustmentBehavior = .never
         }
+        print(self.titulo as Any)
+        self.titLabel.text = self.titulo
         self.imageView.image = self.image
         self.imageView.frame = CGRect(x: self.imageView.frame.origin.x,
                                       y: self.imageView.frame.origin.y,
@@ -122,7 +125,7 @@ class PhotoZoomViewController: UIViewController {
         imageViewTopConstraint.constant = yOffset
         imageViewBottomConstraint.constant = yOffset
         
-        let xOffset = max(0, (size.width - imageView.frame.width) / 2)
+        let xOffset = max(0, (size.width - imageView.frame.width) / 1)
         imageViewLeadingConstraint.constant = xOffset
         imageViewTrailingConstraint.constant = xOffset
 

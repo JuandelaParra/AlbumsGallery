@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Photos-->
+        <!--Albums-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AlbumsGallery" customModuleProvider="target" sceneMemberID="viewController">
@@ -38,11 +38,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EKY-87-WYU">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="83.333333333333329"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="71.333333333333329"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcW-AS-MeB">
-                                                    <rect key="frame" x="29" y="87.333333333333329" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcW-AS-MeB">
+                                                    <rect key="frame" x="0.0" y="85" width="100" height="29"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -50,8 +50,8 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="EKY-87-WYU" firstAttribute="top" secondItem="eSZ-mW-hZB" secondAttribute="top" id="9UC-7i-UrS"/>
-                                            <constraint firstAttribute="bottom" secondItem="EKY-87-WYU" secondAttribute="bottom" multiplier="1.2" id="Lwb-NL-o38"/>
-                                            <constraint firstItem="RcW-AS-MeB" firstAttribute="top" secondItem="EKY-87-WYU" secondAttribute="bottom" constant="4" id="nZt-qp-CXn"/>
+                                            <constraint firstAttribute="bottom" secondItem="EKY-87-WYU" secondAttribute="bottom" multiplier="1.4" id="Lwb-NL-o38"/>
+                                            <constraint firstItem="RcW-AS-MeB" firstAttribute="top" secondItem="EKY-87-WYU" secondAttribute="bottom" constant="1" id="nZt-qp-CXn"/>
                                             <constraint firstItem="EKY-87-WYU" firstAttribute="leading" secondItem="eSZ-mW-hZB" secondAttribute="leading" id="qO2-uP-YCz"/>
                                             <constraint firstItem="RcW-AS-MeB" firstAttribute="centerX" secondItem="EKY-87-WYU" secondAttribute="centerX" id="rgX-wq-o6A"/>
                                             <constraint firstAttribute="trailing" secondItem="EKY-87-WYU" secondAttribute="trailing" id="vbC-45-zxB"/>
@@ -70,7 +70,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Photos" id="0Aa-Nu-hDi"/>
+                    <navigationItem key="navigationItem" title="Albums" id="0Aa-Nu-hDi"/>
                     <connections>
                         <outlet property="collectionView" destination="P1m-wF-aMS" id="6Xj-ZS-wMX"/>
                         <segue destination="la0-MI-Tyg" kind="show" identifier="ShowPhotoPageView" id="OHr-Ee-6Ir"/>
@@ -140,20 +140,26 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="tEa-4R-M8a">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="206"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vo-Nj-GYq">
-                                        <rect key="frame" x="21" y="236" width="299" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" systemColor="systemBackgroundColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vo-Nj-GYq">
+                                        <rect key="frame" x="21" y="93" width="299" height="20.333333333333329"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Label">
+                                                <attributes>
+                                                    <color key="NSColor" systemColor="separatorColor"/>
+                                                    <font key="NSFont" metaFont="system" size="17"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
                                         <color key="highlightedColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="tEa-4R-M8a" firstAttribute="top" secondItem="jUt-VB-wrq" secondAttribute="top" id="6u2-fR-jf0"/>
-                                    <constraint firstItem="5vo-Nj-GYq" firstAttribute="top" secondItem="tEa-4R-M8a" secondAttribute="bottom" constant="30" id="92K-hs-97u"/>
                                     <constraint firstAttribute="bottom" secondItem="tEa-4R-M8a" secondAttribute="bottom" id="Ead-n7-lLO"/>
                                     <constraint firstItem="5vo-Nj-GYq" firstAttribute="trailing" secondItem="tEa-4R-M8a" secondAttribute="trailing" id="HGF-nt-sxI"/>
                                     <constraint firstAttribute="trailing" secondItem="tEa-4R-M8a" secondAttribute="trailing" id="MXn-bi-Iii"/>
+                                    <constraint firstItem="5vo-Nj-GYq" firstAttribute="centerY" secondItem="tEa-4R-M8a" secondAttribute="centerY" id="NhM-MG-nnO"/>
                                     <constraint firstItem="5vo-Nj-GYq" firstAttribute="leading" secondItem="jUt-VB-wrq" secondAttribute="leading" constant="21" id="bGC-q1-zOc"/>
                                     <constraint firstItem="tEa-4R-M8a" firstAttribute="leading" secondItem="jUt-VB-wrq" secondAttribute="leading" id="yeC-Hi-rbX"/>
                                 </constraints>
@@ -174,6 +180,7 @@
                         <outlet property="imageViewTopConstraint" destination="6u2-fR-jf0" id="FfE-1V-f5f"/>
                         <outlet property="imageViewTrailingConstraint" destination="MXn-bi-Iii" id="hUr-oS-nAO"/>
                         <outlet property="scrollView" destination="jUt-VB-wrq" id="JqR-Vd-qHU"/>
+                        <outlet property="titLabel" destination="5vo-Nj-GYq" id="95r-tK-Q25"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Id-vD-CwF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -223,6 +230,9 @@
         <image name="photo.fill" catalog="system" width="128" height="93"/>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
